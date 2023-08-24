@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                           http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
+       version="3.0" bean-discovery-mode="all">
+
+
+    <!--    <alternatives>-->
+    <!--        <class>javaeetutorials.cdi.alternatives.FormatService</class>-->
+    <!--    </alternatives>-->
+    <!--    <interceptors>-->
+    <!--        <class>javaeetutorials.cdi.interceptorBinding.LoggingInterceptor</class>-->
+    <!--    </interceptors>-->
+<!--    <decorators>-->
+    <!--        <class>javaeetutorials.cdi.decorator.FromSimpleToCustomFormat</class>-->
+    <!--    </decorators>-->
+</beans>
