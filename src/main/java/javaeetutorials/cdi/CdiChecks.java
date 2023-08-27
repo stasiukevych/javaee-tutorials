@@ -1,4 +1,4 @@
-package javaeetutorials;
+package javaeetutorials.cdi;
 
 import jakarta.inject.Inject;
 import jakarta.interceptor.ExcludeClassInterceptors;
@@ -19,9 +19,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-@Path("health")
+@Path("cdi")
 @Loggable
-public class Checker {
+public class CdiChecks {
 
     @Inject
     @CustomFormat
