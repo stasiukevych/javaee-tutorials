@@ -15,4 +15,7 @@
 <!--    <decorators>-->
     <!--        <class>javaeetutorials.cdi.decorator.FromSimpleToCustomFormat</class>-->
     <!--    </decorators>-->
+<!--    <interceptors>-->
+    <!--        <class>javaeetutorials.validation.withInterceptor.MethodInterceptor</class>-->
+    <!--    </interceptors>-->
 </beans>
