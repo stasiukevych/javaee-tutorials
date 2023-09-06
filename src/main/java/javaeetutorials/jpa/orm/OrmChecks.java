@@ -13,9 +13,12 @@ import javaeetutorials.jpa.orm.primaryKeys.embeddable.News;
 import javaeetutorials.jpa.orm.primaryKeys.embeddable.NewsId;
 import javaeetutorials.jpa.orm.primaryKeys.idClass.Computer;
 import javaeetutorials.jpa.orm.primaryKeys.idClass.LaptopID;
+import javaeetutorials.jpa.orm.relationship.Order;
+import javaeetutorials.jpa.orm.relationship.OrderLine;
 import javaeetutorials.jpa.orm.tables.Laptop;
 
 import java.util.Date;
+import java.util.List;
 
 @Path("orm")
 public class OrmChecks {
@@ -79,5 +82,50 @@ public class OrmChecks {
         entityManager.persist(customer);
 
         return Response.ok().entity(entityManager.find(Customer.class, customer.getId()).toString()).build();
+    }
+
+    @GET
+    @Path("persistOrder")
+    @Transactional
+    public Response fetchingRelationship() {
+        Order order = new Order();
+        order.setCreation(new Date());
+        order.setDescription("order #1");
+
+        OrderLine orderLine = new OrderLine();
+        orderLine.setNumberOfLine(1);
+        orderLine.setDescription("order line #1");
+        entityManager.persist(orderLine);
+
+        OrderLine orderLine1 = new OrderLine();
+        orderLine1.setNumberOfLine(2);
+        orderLine1.setDescription("order line #2");
+        entityManager.persist(orderLine1);
+
+        OrderLine orderLine2 = new OrderLine();
+        orderLine2.setNumberOfLine(3);
+        orderLine2.setDescription("order line #3");
+        entityManager.persist(orderLine2);
+
+        order.setOrderLines(List.of(orderLine, orderLine1, orderLine2));
+
+        entityManager.persist(order);
+
+        return Response.ok().entity(order.toString()).build();
+    }
+
+    @GET
+    @Path("findOrder")
+    @Transactional
+    public Response findOrder() {
+        // testing fetching
+
+        Order order = entityManager.find(Order.class, 1L);
+
+        System.out.println("Order before getOrderLines: " + order.toString());
+
+        List<OrderLine> orderLines = order.getOrderLines();
+
+        return Response.ok().entity(order + orderLines.toString()).build();
     }
 }

@@ -18,6 +18,8 @@ public class Customer {
     private Date requestToStoreHistory;
     @Enumerated(EnumType.STRING)
     private CustomerType customerType;
+    @Embedded
+    private Address2 address2;
 
     public Long getId() {
         return id;
@@ -59,17 +61,25 @@ public class Customer {
         this.customerType = customerType;
     }
 
+    public Address2 getAddress() {
+        return address2;
+    }
+
+    public void setAddress(Address2 address2) {
+        this.address2 = address2;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(dateOfBirth, customer.dateOfBirth) && Objects.equals(nameOfCustomer, customer.nameOfCustomer) && Objects.equals(requestToStoreHistory, customer.requestToStoreHistory);
+        return Objects.equals(id, customer.id) && Objects.equals(dateOfBirth, customer.dateOfBirth) && Objects.equals(nameOfCustomer, customer.nameOfCustomer) && Objects.equals(requestToStoreHistory, customer.requestToStoreHistory) && customerType == customer.customerType && Objects.equals(address2, customer.address2);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfBirth, nameOfCustomer, requestToStoreHistory);
+        return Objects.hash(id, dateOfBirth, nameOfCustomer, requestToStoreHistory, customerType, address2);
     }
 
     @Override
@@ -80,6 +90,7 @@ public class Customer {
                 ", nameOfCustomer='" + nameOfCustomer + '\'' +
                 ", requestToStoreHistory=" + requestToStoreHistory +
                 ", customerType=" + customerType +
+                ", address=" + address2 +
                 '}';
     }
 }
