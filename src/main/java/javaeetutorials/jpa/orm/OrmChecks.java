@@ -9,6 +9,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 import javaeetutorials.jpa.orm.attributes.Customer;
 import javaeetutorials.jpa.orm.attributes.CustomerType;
+import javaeetutorials.jpa.orm.ordering.Comment;
+import javaeetutorials.jpa.orm.ordering.Newsline;
 import javaeetutorials.jpa.orm.primaryKeys.embeddable.News;
 import javaeetutorials.jpa.orm.primaryKeys.embeddable.NewsId;
 import javaeetutorials.jpa.orm.primaryKeys.idClass.Computer;
@@ -17,6 +19,7 @@ import javaeetutorials.jpa.orm.relationship.Order;
 import javaeetutorials.jpa.orm.relationship.OrderLine;
 import javaeetutorials.jpa.orm.tables.Laptop;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -127,5 +130,58 @@ public class OrmChecks {
         List<OrderLine> orderLines = order.getOrderLines();
 
         return Response.ok().entity(order + orderLines.toString()).build();
+    }
+
+    @GET
+    @Path("persistComments")
+    @Transactional
+    public Response persistComments() throws InterruptedException {
+        // testing persist comments
+
+        Comment comment = new Comment();
+        comment.setContent("content #1");
+        comment.setNickname("hs2");
+        comment.setPostedDate(new Date());
+        comment.setNote(1);
+        entityManager.persist(comment);
+        Thread.sleep(10000);
+
+        Comment comment1 = new Comment();
+        comment1.setContent("content #2");
+        comment1.setNickname("hs4");
+        comment1.setPostedDate(new Date());
+        comment1.setNote(2);
+        entityManager.persist(comment1);
+        Thread.sleep(10000);
+
+        Comment comment2 = new Comment();
+        comment2.setContent("content #3");
+        comment2.setNickname("hs3");
+        comment2.setPostedDate(new Date());
+        comment2.setNote(5);
+        entityManager.persist(comment2);
+        Thread.sleep(10000);
+
+        Newsline newsline = new Newsline();
+        newsline.setContent("newline cont#1");
+        newsline.setComments(new ArrayList<>(){{add(comment2); add(comment); add(comment1);}});
+        entityManager.persist(newsline);
+
+        return Response.ok().entity(newsline.toString()).build();
+    }
+
+    @GET
+    @Path("findNewsline")
+    @Transactional
+    public Response findNewsline() {
+        // testing findNewsline
+
+        Newsline newsline = entityManager.find(Newsline.class, 1L);
+
+        System.out.println("Newsline before getComments: " + newsline.toString());
+
+        List<Comment> comments = newsline.getComments();
+
+        return Response.ok().entity(comments.toString()).build();
     }
 }
