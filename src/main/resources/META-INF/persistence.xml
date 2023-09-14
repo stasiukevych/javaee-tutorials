@@ -10,6 +10,7 @@
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.transaction.flush_before_completion" value="true"/>
+            <property name="shared-cache-mode" value="ENABLE_SELECTIVE"/>
         </properties>
     </persistence-unit>
 </persistence>

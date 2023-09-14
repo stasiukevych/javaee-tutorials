@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "CUSTOM_ORDER")
+@Cacheable(value = true)
 public class Order {
 
     @Id
