@@ -1,7 +1,6 @@
-package javaeetutorials.cacheApi;
+package javaeetutorials.concurrency;
 
 import jakarta.inject.Inject;
-import jakarta.persistence.Cache;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -13,14 +12,19 @@ import java.util.List;
 import javaeetutorials.jpa.orm.relationship.Order;
 import javaeetutorials.jpa.orm.relationship.OrderLine;
 
-@Path("dbCache")
+@Path("conc")
 @Transactional
-public class CacheApiCheck {
+public class ConcurrencyCheck {
 
   @Inject
   private EntityManager entityManager;
 
-  // first need to do this
+  @GET
+  @Path("findOderById/{id}")
+  public Response findById(@PathParam("id") Long id) {
+    return Response.ok().entity(entityManager.find(Order.class, id).toString()).build();
+  }
+
   @GET
   @Path("persistOrder")
   public Response persistOrder() {
@@ -41,27 +45,20 @@ public class CacheApiCheck {
   }
 
   @GET
-  @Path("contains/{id}")
-  public Response contains(@PathParam("id") Long id) {
+  @Path("updateDescription/{id}/{description}")
+  public Response updateDescription(@PathParam("id") Long id,
+      @PathParam("description") String description) {
+    Order order = entityManager.find(Order.class, id);
+    order.setDescription(description);
+    entityManager.merge(order);
 
-    Cache cache = entityManager.getEntityManagerFactory().getCache();
-
-    boolean containsRes = cache.contains(Order.class, id);
-
-    return Response.ok().entity("Contains result for order with[" + id + "] id: " + containsRes)
-        .build();
+    return Response.ok()
+        .entity("Was updated description for[" + id + "], description: " + description).build();
   }
 
   @GET
-  @Path("remove/{id}")
-  public Response removeFromCache(@PathParam("id") Long id) {
-    Cache cache = entityManager.getEntityManagerFactory().getCache();
-
-    cache.evict(Order.class, id);
-
-    boolean containsRes = cache.contains(Order.class, id);
-
-    return Response.ok().entity("Contains result for order with[" + id + "] id: " + containsRes)
-        .build();
+  @Path("findVersionById/{id}")
+  public Response findVersionById(@PathParam("id") Long id) {
+    return Response.ok().entity(entityManager.find(Order.class, id).getVersion()).build();
   }
 }

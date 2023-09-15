@@ -7,10 +7,10 @@ public class CreateItem {
 /*    @Inject
     private Logger logger;*/
 
-    @ExcludeClassInterceptors
-    public String createItems() {
-        return "items was created";
-    }
+  @ExcludeClassInterceptors
+  public String createItems() {
+    return "items was created";
+  }
 
   /*  @AroundInvoke
     private Object logMethod(InvocationContext ic) throws Exception {

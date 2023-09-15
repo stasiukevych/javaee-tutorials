@@ -8,42 +8,42 @@ import jakarta.persistence.IdClass;
 @IdClass(LaptopID.class)
 public class Computer {
 
-    @Id
-    private Long id;
-    @Id
-    private String version;
-    private String name;
+  @Id
+  private Long id;
+  @Id
+  private String version;
+  private String name;
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getVersion() {
-        return version;
-    }
+  public String getVersion() {
+    return version;
+  }
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
+  public void setVersion(String version) {
+    this.version = version;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    @Override
-    public String toString() {
-        return "Computer{" +
-                "id=" + id +
-                ", version='" + version + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "Computer{" +
+        "id=" + id +
+        ", version='" + version + '\'' +
+        ", name='" + name + '\'' +
+        '}';
+  }
 }

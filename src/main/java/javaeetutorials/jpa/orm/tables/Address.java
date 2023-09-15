@@ -1,70 +1,75 @@
 package javaeetutorials.jpa.orm.tables;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.SecondaryTable;
+import jakarta.persistence.SecondaryTables;
 
 @Entity
 @SecondaryTables({
-        @SecondaryTable(name = "city"),
-        @SecondaryTable(name = "country")
+    @SecondaryTable(name = "city"),
+    @SecondaryTable(name = "country")
 })
 public class Address {
-    @Id
-    private Long id;
-    private String street;
-    @Column(table = "city")
-    private String city;
-    @Column(table = "city")
-    private String state;
-    @Column(table = "city")
-    private String zipcode;
-    @Column(table = "country")
-    private String country;
 
-    public Long getId() {
-        return id;
-    }
+  @Id
+  private Long id;
+  private String street;
+  @Column(table = "city")
+  private String city;
+  @Column(table = "city")
+  private String state;
+  @Column(table = "city")
+  private String zipcode;
+  @Column(table = "country")
+  private String country;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getStreet() {
-        return street;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+  public String getStreet() {
+    return street;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public void setStreet(String street) {
+    this.street = street;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public String getState() {
-        return state;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+  public String getState() {
+    return state;
+  }
 
-    public String getZipcode() {
-        return zipcode;
-    }
+  public void setState(String state) {
+    this.state = state;
+  }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
+  public String getZipcode() {
+    return zipcode;
+  }
 
-    public String getCountry() {
-        return country;
-    }
+  public void setZipcode(String zipcode) {
+    this.zipcode = zipcode;
+  }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
 }

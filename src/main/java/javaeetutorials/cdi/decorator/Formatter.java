@@ -4,5 +4,5 @@ import java.util.Date;
 
 public interface Formatter {
 
-    String formatDate(Date date);
+  String formatDate(Date date);
 }
