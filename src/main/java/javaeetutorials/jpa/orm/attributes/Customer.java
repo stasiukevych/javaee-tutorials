@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.PostRemove;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
@@ -26,6 +29,19 @@ public class Customer {
   private CustomerType customerType;
   @Embedded
   private Address2 address2;
+
+  @PrePersist
+  @PreUpdate
+  private void setHistoryValue() {
+    requestToStoreHistory = new Date();
+    System.out.println("Was changed the object: " + requestToStoreHistory);
+  }
+
+  @PostRemove
+  private void setHistoryOnRemove() {
+    requestToStoreHistory = null;
+    System.out.println("Was deleted the object");
+  }
 
   public Long getId() {
     return id;
@@ -77,12 +93,12 @@ public class Customer {
 
   @Override
   public boolean equals(Object o) {
-      if (this == o) {
-          return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-          return false;
-      }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Customer customer = (Customer) o;
     return Objects.equals(id, customer.id) && Objects.equals(dateOfBirth, customer.dateOfBirth)
         && Objects.equals(nameOfCustomer, customer.nameOfCustomer) && Objects.equals(
