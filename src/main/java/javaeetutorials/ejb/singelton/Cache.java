@@ -1,16 +1,21 @@
 package javaeetutorials.ejb.singelton;
 
+import jakarta.ejb.AccessTimeout;
 import jakarta.ejb.Singleton;
-import jakarta.ejb.Startup;
 import java.util.HashMap;
 
 @Singleton
-@Startup
+//@Lock(LockType.WRITE)
+//@AccessTimeout(value = 5, unit = TimeUnit.SECONDS)
 public class Cache {
 
   private final HashMap<String, Object> prop = new HashMap<>();
 
-  public void putValue(String key, Object value) {
+  @AccessTimeout(0)
+  public void putValue(String key, Object value) throws InterruptedException {
+    if (!prop.isEmpty()) { // for testing lock mechanism
+      Thread.sleep(20000);
+    }
     prop.put(key, value);
   }
 
@@ -22,6 +27,7 @@ public class Cache {
     return prop.containsKey(key);
   }
 
+  //  @Lock(LockType.READ)
   public HashMap<String, Object> getProp() {
     return prop;
   }

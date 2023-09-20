@@ -6,8 +6,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 
-@Path("cache")
-public class CacheController {
+@Path("cacheCopy")
+public class CacheControllerCopy {
 
   @EJB
   private Cache cacheStorage;
