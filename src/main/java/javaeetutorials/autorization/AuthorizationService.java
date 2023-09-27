@@ -8,12 +8,11 @@ import java.util.List;
 
 @Stateless
 @RunAs("user")
-@RolesAllowed({"user, admin, devOps"})
+@RolesAllowed({"user", "admin", "devops"})
 public class AuthorizationService {
 
   private List<String> userName = new ArrayList<>();
 
-  @RolesAllowed("user")
   public void addUserName(String userName) {
     this.userName.add(userName);
   }

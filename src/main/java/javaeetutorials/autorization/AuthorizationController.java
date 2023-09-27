@@ -1,13 +1,14 @@
 package javaeetutorials.autorization;
 
-import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RunAs;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 
-@Path("authorization")
+@RunAs("user")
+@Path("user")
 public class AuthorizationController {
 
   @EJB
