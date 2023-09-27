@@ -1,15 +1,12 @@
 package javaeetutorials.autorization;
 
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.annotation.security.RunAs;
-import jakarta.ejb.Stateless;
+import jakarta.ejb.Stateful;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateless
-@RunAs("user")
-@RolesAllowed({"user", "admin", "devops"})
-public class AuthorizationService {
+@Stateful
+public class UserService implements Serializable {
 
   private List<String> userName = new ArrayList<>();
 
@@ -21,7 +18,6 @@ public class AuthorizationService {
     return userName;
   }
 
-  @RolesAllowed("admin")
   public String deleteUserName(String userName) {
     this.userName.remove(userName);
     return userName;
