@@ -6,6 +6,7 @@ import jakarta.jms.Connection;
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Destination;
 import jakarta.jms.JMSException;
+import jakarta.jms.Message;
 import jakarta.jms.MessageConsumer;
 import jakarta.jms.Session;
 import jakarta.jms.TextMessage;
@@ -32,7 +33,17 @@ public class ConsumerController {
 
     connection.start();
 
-    return Response.ok().entity("was received: " + ((TextMessage) producer.receive()).getText())
-                   .build();
+    Message message = null;
+
+    while (true) {
+      message = producer.receive();
+      String messageStr = ((TextMessage) message).getText();
+      System.out.println("Received: " + messageStr);
+      if ("Communication was finished".equals(messageStr)) {
+        break;
+      }
+    }
+
+    return Response.ok().entity("Communication was finished").build();
   }
 }

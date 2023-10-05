@@ -10,6 +10,7 @@ import jakarta.jms.Session;
 import jakarta.jms.TextMessage;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 
 @RequestScoped
@@ -23,12 +24,12 @@ public class ProducerController {
   private Destination destination;
 
   @GET
-  @Path("send")
-  public Response produceMessage() throws JMSException {
+  @Path("send/{message}")
+  public Response produceMessage(@PathParam("message") String message) throws JMSException {
     Session session = factory.createConnection().createSession();
     MessageProducer producer = session.createProducer(destination);
-    TextMessage message = session.createTextMessage("Hello from JMS :)");
-    producer.send(message);
+    TextMessage jmsMessage = session.createTextMessage(message);
+    producer.send(jmsMessage);
 
     return Response.ok().build();
   }
