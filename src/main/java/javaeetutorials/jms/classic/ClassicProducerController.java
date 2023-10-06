@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.Response;
 
 @RequestScoped
 @Path("producer")
-public class ProducerController {
+public class ClassicProducerController {
 
   @Resource(lookup = "java:/ConnectionFactory")
   private ConnectionFactory factory;
